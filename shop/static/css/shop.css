@@ -1,0 +1,43 @@
+.page-header a {
+    text-decoration: none;
+    list-decoration: none;
+
+}
+
+.page-header {
+    padding: 20px;
+    background-color: black;
+    width: 100%;
+}
+
+.nav-bar ul {
+    display: flex;
+    justify-content: flex-end;
+    align-content: center;
+    list-style-type: none;
+}
+
+.nav-bar li {
+    margin: 10px;
+}
+
+body {
+    text-align: center;
+    background-color: lightgrey;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.container a {
+    justify-content: left;
+}
+
+body {
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+}
