@@ -1,16 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Customers</title>
-</head>
-<body>
-    <h1>Customers</h1>
-    <p>Customers go here ...</p>
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block additional_css %} <link rel="stylesheet" href="{% static 'css/customers.css' %}"> {% endblock %}
+
+{% block content %}
+    <h1>Add Customer</h1>
+    <form class=form method="post">
+        {% csrf_token %}
+        <div class="formitems">
+            {{ form_customer_create.as_p }}
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    <h1>Search Customer</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
+        {{ form_customer_search.as_p }}
+        <button type="submit">Search</button>
     </form>
-</body>
-</html>
+
+{% endblock %}

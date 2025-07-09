@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Customer</title>
-</head>
-<body>
-    <p>{{ customer_name }}</p>
-</body>
-</html>
+{% extends 'shop/base.html' %}
+
+{% block content %}
+    <p>First name: {{ first_name }}</p>
+    <p>Last name: {{ last_name }}</p>
+    <p>Phone: {{ phone_number }}</p>
+{% endblock %}

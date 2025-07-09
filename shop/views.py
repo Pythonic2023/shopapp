@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Customer
-from .forms import CustomerForm
+from .forms import CustomerForm, PhoneForm
 
 
 # Create your views here.
@@ -15,37 +15,56 @@ def index(request):
 # Loads form, or submits form creates customer if number in database is not existent
 def create_customer(request):
     if request.method == "POST":
-        form = CustomerForm(request.POST)
-        if form.is_valid():
+        form_customer_create = CustomerForm(request.POST, prefix="form_customer_create")
+        form_customer_search = PhoneForm(request.POST, prefix="form_customer_search")
+        print(request.POST)
+        if form_customer_create.is_valid():
             try:
-                phone_number_obj = form.cleaned_data['phone_number']
+                phone_number_obj = form_customer_create.cleaned_data['phone_number']
                 phone_number_str = str(phone_number_obj)
                 raw_number = ''.join(char for char in phone_number_str if char.isdigit())
                 phone_number_int = int(raw_number)
                 if isinstance(phone_number_int, int):
-                    customer_name = form.cleaned_data['first_name']
+                    customer_name = form_customer_create.cleaned_data['first_name']
                     print(customer_name)
-                    form.save(commit=False)
+                    form_customer_create.save(commit=False)
                     try:
                         get_customer = Customer.objects.get(phone_number=phone_number_str)
                         if get_customer:
                             error = "Phone number exists"
                             return site_error(request, error)
                     except ObjectDoesNotExist:
-                        form.save()
+                        form_customer_create.save()
                     customer = Customer.objects.get(phone_number=phone_number_str)
                     customer_pk = customer.pk
                     return customer_detail(request, customer_pk)
             except ValueError:
                 error = "ERROR: Please type your number again with only digits."
                 return site_error(request, error)
-
+        elif form_customer_search.is_valid():
+            try:
+                phone_obj = form_customer_search.cleaned_data['phone_number']
+                phone_obj_str = str(phone_obj)
+                raw_phone = ''.join(char for char in phone_obj_str if char.isdigit())
+                int_phone = int(raw_phone)
+                if isinstance(int_phone, int):
+                    customer = Customer.objects.get(phone_number=phone_obj_str)
+                    customer_pk = customer.pk
+                    return customer_detail(request, customer_pk)
+            except ValueError:
+                error = "Failed"
+                return site_error(request, error)
         else:
             return redirect(reverse("index"))
     else:
-        form = CustomerForm()
-        context = {'form': form}
+        form_customer_create = CustomerForm(prefix="form_customer_create")
+        form_customer_search = PhoneForm(prefix="form_customer_search")
+        context = {'form_customer_create': form_customer_create,
+                   'form_customer_search': form_customer_search,
+                   }
         return render(request, "shop/customers.html", context)
+
+
 
 # Shows error on page
 def site_error(request, site_error):
@@ -56,9 +75,12 @@ def site_error(request, site_error):
 # Renders page with customer name
 def customer_detail(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
-    customer_name = customer.first_name
+    first_name = customer.first_name
+    last_name = customer.last_name
+    phone_number = customer.phone_number
     context = {
-        'customer_name': customer_name,
+        'first_name': first_name,
+        'last_name': last_name,
+        'phone_number': phone_number,
     }
     return render(request, "shop/customerdetail.html", context)
-
