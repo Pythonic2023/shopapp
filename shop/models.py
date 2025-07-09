@@ -10,3 +10,12 @@ class Customer(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class WorkOrders(models.Model):
+    work_title = models.CharField(max_length=30)
+    work_body = models.TextField()
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.work_title

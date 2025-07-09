@@ -92,3 +92,7 @@ def add_customer(request, form):
     except ValueError:
         error = "ERROR: Please type your number again with only digits."
         return site_error(request, error)
+
+
+def work_orders(request):
+    return render(request, "shop/workorders.html")
