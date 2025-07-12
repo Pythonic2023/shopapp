@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Customer
-from .forms import CustomerForm, PhoneForm
+from phone_field.templatetags.phone import raw_phone
+
+from .models import Customer, WorkOrders
+from .forms import CustomerForm, PhoneForm, WorkOrdersForm
 
 
 # Create your views here.
@@ -94,5 +96,41 @@ def add_customer(request, form):
         return site_error(request, error)
 
 
+
+def add_order(request):
+    if request.method == "POST":
+        work_order_create = WorkOrdersForm(request.POST)
+        print(request.POST.get('phone_number_0'))
+        if work_order_create.is_valid():
+            phone_obj = work_order_create.cleaned_data['phone_number']
+            phone_str = str(phone_obj)
+            raw_number = ''.join(char for char in phone_str if char.isdigit())
+            phone_int = int(raw_number)
+            work_order_instance = work_order_create.save(commit=False)
+            try:
+                customer_obj = Customer.objects.get(phone_number=phone_str)
+            except ObjectDoesNotExist:
+                error = "Customer does not exist"
+                return site_error(request, error)
+            work_order_instance.customer = customer_obj
+            if isinstance(phone_int, int):
+                work_order_create.save()
+            return redirect(reverse("workorders"))
+        else:
+            error = "Work order not valid"
+            return site_error(request, error)
+    else:
+        work_order_create = WorkOrdersForm()
+        context = {
+            'work_order_create': work_order_create,
+        }
+        return render(request, "shop/addorder.html" ,context=context)
+
+
+
 def work_orders(request):
-    return render(request, "shop/workorders.html")
+    work_obj = WorkOrders.objects.all()
+    context = {
+        'work_obj': work_obj,
+    }
+    return render(request, "shop/workorders.html", context=context)

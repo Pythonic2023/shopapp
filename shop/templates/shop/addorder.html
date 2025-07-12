@@ -1,0 +1,13 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block additional_css %} <link rel="stylesheet" href="{% static 'css/addorder.css' %}"> {%endblock%}
+
+{% block content %}
+    <h1>Create work order</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ work_order_create.as_p }}
+        <button type="submit">Create</button>
+    </form>
+{% endblock %}

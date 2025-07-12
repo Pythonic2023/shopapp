@@ -1,3 +1,5 @@
+from timeit import default_number
+
 from django.db import models
 from phone_field import PhoneField
 
@@ -15,6 +17,7 @@ class Customer(models.Model):
 class WorkOrders(models.Model):
     work_title = models.CharField(max_length=30)
     work_body = models.TextField()
+    phone_number = PhoneField()
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -1,0 +1,15 @@
+.workorders h1{
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 10px;
+}
+
+.workorders p {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 10px;
+}
+
+a {
+    text-decoration: none;
+}

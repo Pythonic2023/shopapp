@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Customer
+from .models import Customer, WorkOrders
 
 class CustomerForm(ModelForm):
     class Meta:
@@ -11,3 +11,9 @@ class PhoneForm(ModelForm):
     class Meta:
         model = Customer
         fields = ['phone_number']
+
+
+class WorkOrdersForm(ModelForm):
+    class Meta:
+        model = WorkOrders
+        fields = ['work_title', 'work_body', 'phone_number']

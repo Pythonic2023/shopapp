@@ -2,6 +2,18 @@
 
 {% load static %}
 
+{% block additional_css %} <link rel="stylesheet" href="{% static 'css/workorders.css' %}"> {% endblock %}
+
 {% block content %}
-    <h1> Work orders </h1>
+    <h1>Work orders</h1>
+    <h3>Create<a href="{% url 'addorder' %}"><img src="{% static 'images/addiconblack.svg' %}"></a></h3>
+    {% for obj in work_obj %}
+    <div class="workorders">
+        <h1>Order number: {{obj.id}}</h1>
+        <p>{{ obj.customer }}</p>
+        <p>{{ obj.work_title }}</p>
+        <p>{{ obj.work_body }}</p>
+        <p>{{ obj.phone_number }}</p>
+    </div>
+    {% endfor %}
 {% endblock %}
