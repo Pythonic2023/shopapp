@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from phone_field.templatetags.phone import raw_phone
 
 from .models import Customer, WorkOrders
-from .forms import CustomerForm, PhoneForm, WorkOrdersForm
+from .forms import CustomerForm, PhoneForm, WorkOrdersForm, RemoveOrderForm
 
 
 # Create your views here.
@@ -114,7 +114,11 @@ def add_order(request):
                 return site_error(request, error)
             work_order_instance.customer = customer_obj
             if isinstance(phone_int, int):
-                work_order_create.save()
+                tax_percentage = 13
+                price = work_order_instance.pricing
+                price += (price * tax_percentage/100)
+                work_order_instance.pricing = price
+                work_order_instance.save()
             return redirect(reverse("workorders"))
         else:
             error = "Work order not valid"
@@ -134,3 +138,23 @@ def work_orders(request):
         'work_obj': work_obj,
     }
     return render(request, "shop/workorders.html", context=context)
+
+
+def remove_order(request):
+    if request.method == "POST":
+        remove_form = RemoveOrderForm(request.POST)
+        if remove_form.is_valid():
+            remove_form_id = remove_form.cleaned_data['id']
+            try:
+                order_instance = WorkOrders.objects.get(id=remove_form_id)
+                order_instance.delete()
+            except ObjectDoesNotExist:
+                error = "Work order does not exist"
+                site_error(request, error)
+    else:
+        remove_id = RemoveOrderForm()
+        context = {
+            'remove_id': remove_id,
+        }
+        return render(request, "shop/removeorder.html", context=context)
+    return redirect(reverse("index"))

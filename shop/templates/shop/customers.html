@@ -5,18 +5,19 @@
 
 {% block content %}
     <h1>Add Customer</h1>
-    <form class=form method="post">
+    <form class="createform" method="post">
         {% csrf_token %}
         <div class="formitems">
             {{ form_customer_create.as_p }}
-            <button type="submit">Submit</button>
+            <button type="submit"><img src="{% static 'images/addicon24.svg' %}"></button>
         </div>
     </form>
     <h1>Search Customer</h1>
-    <form method="post">
+    <form class="searchform" method="post">
+        <div>
         {% csrf_token %}
         {{ form_customer_search.as_p }}
-        <button type="submit">Search</button>
+        <button type="submit"><img src="{% static 'images/searchicon.svg' %}"></button>
+        </div>
     </form>
-
 {% endblock %}

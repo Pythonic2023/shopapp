@@ -15,9 +15,14 @@ class Customer(models.Model):
 
 
 class WorkOrders(models.Model):
+    PRICE = (
+        (120, "MOUNTBALANCE"),
+        (60, "TIRESWAP"),
+    )
     work_title = models.CharField(max_length=30)
     work_body = models.TextField()
     phone_number = PhoneField()
+    pricing = models.FloatField(choices=PRICE, default=0)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
     def __str__(self):

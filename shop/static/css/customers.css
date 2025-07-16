@@ -1,11 +1,21 @@
-.form {
+.createform {
     display: flex;
     justify-content: center;
-    width: 100%
+    margin: 20px;
 }
 
-.formitems p{
+.createform p {
+    margin: 10px;
+    text-align: left;
+}
+
+.searchform {
     display: flex;
+    justify-content: center;
+}
+
+.searchform button {
+    text-align: center;
 }
 
 .phone-field-ext {

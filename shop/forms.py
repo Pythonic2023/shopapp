@@ -1,3 +1,6 @@
+from email.policy import default
+
+from django import forms
 from django.forms import ModelForm
 from .models import Customer, WorkOrders
 
@@ -16,4 +19,8 @@ class PhoneForm(ModelForm):
 class WorkOrdersForm(ModelForm):
     class Meta:
         model = WorkOrders
-        fields = ['work_title', 'work_body', 'phone_number']
+        fields = ['work_title', 'work_body', 'phone_number', 'pricing']
+
+
+class RemoveOrderForm(forms.Form):
+    id = forms.IntegerField()

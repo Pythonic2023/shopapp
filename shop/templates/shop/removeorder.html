@@ -1,0 +1,14 @@
+{% extends 'shop/base.html' %}
+
+
+{% block content %}
+
+    <h1>Remove Order</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ remove_id.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+{% endblock %}

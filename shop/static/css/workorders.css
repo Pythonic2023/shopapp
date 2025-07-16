@@ -1,15 +1,22 @@
-.workorders h1{
+.workorders {
     display: flex;
-    justify-content: flex-start;
-    padding-left: 10px;
+    justify-content: left;
+    flex-wrap: wrap;
 }
 
-.workorders p {
-    display: flex;
-    justify-content: flex-start;
-    padding-left: 10px;
+.workorder > div{
+    border-style: groove;
+    border-color: blue;
+    background-color: darkgrey;
+    margin: 70px;
+    padding: 20px;
 }
 
 a {
     text-decoration: none;
+}
+
+.addremove {
+    display: flex;
+    justify-content: center;
 }
