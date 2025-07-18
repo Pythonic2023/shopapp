@@ -1,28 +1,38 @@
-.createform {
-    display: flex;
+.formitems {
+    display: grid;
+    grid-template-columns: 15%;
     justify-content: center;
-    margin: 20px;
+    text-align: center;
 }
 
-.createform p {
-    margin: 10px;
-    text-align: left;
+.formfield {
+    margin: 5px;
+    padding: 5px;
 }
 
-.searchform {
+.flex-grid {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+}
+
+.flex-grid input {
+    border: 2px solid black;
+    border-radius: 12px;
+}
+
+.createform button {
+    border: 1px solid black;
+    border-radius: 6px;
 }
 
 .searchform button {
-    text-align: center;
+    border: 1px solid black;
+    border-radius: 6px;
 }
 
 .phone-field-ext {
     display: none;
 }
-
-
 
 #id_phone_number_1 {
     display: none;

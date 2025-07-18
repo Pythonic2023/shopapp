@@ -8,16 +8,31 @@
     <form class="createform" method="post">
         {% csrf_token %}
         <div class="formitems">
-            {{ form_customer_create.as_p }}
-            <button type="submit"><img src="{% static 'images/addicon24.svg' %}"></button>
+            {% for field in form_customer_create %}
+                <div class="formfield">
+                <div class="flex-grid">
+                {% if field.name == 'phone_number' %}
+                    <label for="id_phone_number_0">Phone number</label>
+                {% else %}
+                    {{ field.label_tag }}
+                {% endif %}
+                    {{ field }}
+                </div>
+                </div>
+            {% endfor %}
         </div>
+        <button type="submit"><img src="{% static 'images/addicon24.svg' %}"></button>
     </form>
     <h1>Search Customer</h1>
     <form class="searchform" method="post">
-        <div>
-        {% csrf_token %}
-        {{ form_customer_search.as_p }}
-        <button type="submit"><img src="{% static 'images/searchicon.svg' %}"></button>
+        <div class="formitems">
+            <div class="formfield">
+                <div class="flex-grid">
+                    {% csrf_token %}
+                    {{ form_customer_search.as_p }}
+                </div>
+            </div>
         </div>
+        <button type="submit"><img src="{% static 'images/searchicon.svg' %}"></button>
     </form>
 {% endblock %}

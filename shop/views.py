@@ -29,7 +29,9 @@ def create_customer(request):
             return site_error(request, error)
     else:
         form_customer_create = CustomerForm(prefix="form_customer_create")
+        form_customer_create.label_suffix=""
         form_customer_search = PhoneForm(prefix="form_customer_search")
+        form_customer_search.label_suffix=""
         context = {'form_customer_create': form_customer_create,
                    'form_customer_search': form_customer_search,
                    }
