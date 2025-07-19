@@ -1,22 +1,18 @@
-.workorders {
+.grid-container {
     display: grid;
-    grid-template-columns: auto auto auto;
-
+    grid-template-columns: 1fr;
+    gap: 10px 10px;
 }
 
-.workorder div{
-    border-style: groove;
-    border-color: blue;
-    background-color: darkgrey;
-    margin: 70px;
-    padding: 20px;
-}
-
-a {
-    text-decoration: none;
+.grid-item {
+    border: 3px solid black;
+    border-radius: 40px;
+    background-color: white;
+    margin: 2%;
 }
 
 .addremove {
     display: flex;
     justify-content: center;
 }
+

@@ -5,9 +5,18 @@
 
 {% block content %}
     <h1>Create work order</h1>
+    <div class="addgridcontainer">
     <form method="post">
         {% csrf_token %}
-        {{ work_order_create.as_p }}
-        <button type="submit">Create</button>
+        {% for item in work_order_create %}
+        <div class="griditems">
+            <p class="title">
+            {{ item.label_tag }}
+            </p>
+            {{ item }}
+        </div>
+        {% endfor %}
     </form>
+    </div>
+        <button type="submit">Create</button>
 {% endblock %}

@@ -1,0 +1,11 @@
+#id_submit_button{
+    border: 2px solid black;
+    border-radius: 12px;
+}
+
+#input input{
+    width: 100px;
+    margin: 10px;
+    border: 2px solid black;
+    border-radius: 12px;
+}

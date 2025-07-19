@@ -1,3 +1,39 @@
+.addgridcontainer {
+    display: grid;
+    row-gap: 20px;
+    grid-template-columns: auto;
+}
+
+.title {
+    margin: 5px;
+}
+
+.griditems input {
+    border: 2px solid black;
+    border-radius: 12px;
+}
+
+button[type="submit"] {
+    width: 100px;
+    margin: 10px;
+    border: 2px solid black;
+    border-radius: 12px;
+}
+
+#id_work_body {
+    border: 2px;
+    border-radius: 12px;
+}
+
+#id_pricing {
+    border: 2px solid black;
+    border-radius: 12px;
+}
+
+#id_work_body {
+    height: 100px;
+}
+
 #id_phone_number_1 {
     display: none;
 }

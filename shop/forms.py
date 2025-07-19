@@ -23,4 +23,4 @@ class WorkOrdersForm(ModelForm):
 
 
 class RemoveOrderForm(forms.Form):
-    id = forms.IntegerField()
+    order_number = forms.IntegerField(widget=forms.TextInput)

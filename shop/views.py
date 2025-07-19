@@ -70,7 +70,7 @@ def search_customer(request, form):
             customer_pk = customer.pk
             return customer_detail(request, customer_pk)
     except ValueError:
-        error = "Failed"
+        error = "Search failed"
         return site_error(request, error)
 
 def add_customer(request, form):
@@ -127,6 +127,7 @@ def add_order(request):
             return site_error(request, error)
     else:
         work_order_create = WorkOrdersForm()
+        work_order_create.label_suffix=""
         context = {
             'work_order_create': work_order_create,
         }
@@ -146,15 +147,16 @@ def remove_order(request):
     if request.method == "POST":
         remove_form = RemoveOrderForm(request.POST)
         if remove_form.is_valid():
-            remove_form_id = remove_form.cleaned_data['id']
+            remove_form_id = remove_form.cleaned_data['order_number']
             try:
                 order_instance = WorkOrders.objects.get(id=remove_form_id)
                 order_instance.delete()
             except ObjectDoesNotExist:
                 error = "Work order does not exist"
-                site_error(request, error)
+                return site_error(request, error)
     else:
         remove_id = RemoveOrderForm()
+        remove_id.label_suffix=""
         context = {
             'remove_id': remove_id,
         }

@@ -31,8 +31,9 @@
                     {% csrf_token %}
                     {{ form_customer_search.as_p }}
                 </div>
+                <button type="submit"><img src="{% static 'images/searchicon.svg' %}"></button>
             </div>
         </div>
-        <button type="submit"><img src="{% static 'images/searchicon.svg' %}"></button>
+
     </form>
 {% endblock %}

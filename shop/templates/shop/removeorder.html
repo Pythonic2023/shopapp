@@ -1,5 +1,7 @@
 {% extends 'shop/base.html' %}
+{% load static %}
 
+{% block additional_css %} <link rel="stylesheet" href="{% static 'css/removeorder.css' %}"> {% endblock %}
 
 {% block content %}
 
@@ -7,8 +9,13 @@
 
     <form method="post">
         {% csrf_token %}
-        {{ remove_id.as_p }}
-        <button type="submit">Submit</button>
+        {% for item in remove_id %}
+        <div id="input">
+            {{ item.label_tag }}
+            {{ item }}
+        </div>
+        {% endfor %}
+        <button id="id_submit_button" type="submit">Submit</button>
     </form>
 
 {% endblock %}
